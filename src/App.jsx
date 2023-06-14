@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Chess } from "chess.js";
 import { Chessboard } from "react-chessboard";
 
-const url = "http://127.0.0.1:8082/move"
+const url = "http://80.158.30.121:32084/move"
 
 export default function App() {
   const [game, setGame] = useState(new Chess());
@@ -12,7 +12,7 @@ export default function App() {
     gameOver: false,
     move: "",
     usedTimebyAi: 0,
-    mode: "s",
+    mode: "AlphaBeta",
     message: ""
   }
 
