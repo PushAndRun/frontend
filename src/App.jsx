@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Chess } from "chess.js";
 import { Chessboard } from "react-chessboard";
 
-const url = "http://80.158.30.121:32084/move"
+const url = "https://nextmagnus.pushandrun.de/move"
 
 export default function App() {
   const [game, setGame] = useState(new Chess());

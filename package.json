@@ -7,11 +7,11 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
+    "preview": "vite preview --port 8080",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d dist"
   },
-  "homepage": "http://pushandrun.github.io/fronend",
+  "homepage": "http://pushandrun.github.io/frontend/",
   "dependencies": {
     "chess.js": "^0.13.4",
     "react": "^18.2.0",
