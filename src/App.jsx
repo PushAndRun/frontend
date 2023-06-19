@@ -29,7 +29,7 @@ export default function App() {
   async function getMovefromAi() {
     gameStatus.fen = game.fen();
 
-    //make a get request to localhost including the gameStatus 
+    //make a get request to the chess engine including the gameStatus 
     await fetch(url, {
       method: 'POST',
       headers: {
@@ -70,7 +70,7 @@ export default function App() {
     const move = makeAMove({
       from: sourceSquare,
       to: targetSquare,
-      promotion: "q", // always promote to a queen for example simplicity
+      promotion: "q", // always promote to a queen for simplicity
     });
 
     // illegal move
@@ -88,5 +88,27 @@ export default function App() {
   }
 
   
-  return <div className="board"><Chessboard position={game.fen()} onPieceDrop={onDrop} /></div>;
+  return (
+  <>
+  <div className="board">
+    <Chessboard position={game.fen()} onPieceDrop={onDrop} 
+    customBoardStyle={{
+    borderRadius: "4px",
+    boxShadow: "0 2px 10px rgba(0, 0, 0, 0.5)",
+    }}
+    customDarkSquareStyle={{ backgroundColor: "#91b1c7" }}
+    customLightSquareStyle={{ backgroundColor: "#dae1e6" }} />
+    <button className="resetButton"
+        onClick={() => {
+          safeGameMutate((game) => {
+            game.reset();
+          });
+          clearTimeout(200);
+        }}
+      > Reset
+      </button>
+  </div>
+  </>
+
+);
 }  
