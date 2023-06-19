@@ -8,6 +8,10 @@
     src: url("assets/moondance.regular.otf");
     }
 
+body {
+    overflow-x:hidden;
+}    
+
 .header {
     width: 100%;
     padding-top: 60px;
