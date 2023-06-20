@@ -10,6 +10,7 @@
 
 body {
     overflow-x:hidden;
+    font-family: 'verdana', sans-serif;
 }    
 
 .header {
@@ -25,7 +26,6 @@ body {
 a {
     color: white;
     margin: auto;
-    font-family: 'verdana', sans-serif;
     display: inline-block;
 }
 
@@ -42,7 +42,7 @@ a {
     background: radial-gradient(circle, rgba(83,106,223,1) 0%, rgba(217,106,128,1) 100%);
 }
 
-.resetButton {
+.button {
     margin-top: 64px;
     margin-left: auto;
     margin-right: auto;
@@ -57,3 +57,25 @@ a {
 
 }
 
+
+.Modal {
+    position: absolute;
+    padding: 36px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 10px 5px 8px rgba(96, 97, 104, 0.377);
+    width: 320px;
+    height: 240px;
+    background-color: white;
+    border-radius: 4px;
+  }
+
+  .Overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(96, 97, 104, 0.377);
+  }

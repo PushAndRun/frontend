@@ -2,6 +2,9 @@ import { useState } from "react";
 import { Chess } from "chess.js";
 import { Chessboard } from "react-chessboard";
 
+import ReactModal from 'react-modal'; 
+ReactModal.setAppElement('#root');
+
 const url = "https://nextmagnus.pushandrun.de/move"
 
 export default function App() {
@@ -18,6 +21,22 @@ export default function App() {
 
   var isGameOver = Chess.isGameOver;
   Chess.isGameOver = () => { return (isGameOver || gameStatus.gameOver);} 
+
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalTitle, setModalTitle] = useState("Game over");
+  const [modalText, setModalText] = useState("Looooser!");
+
+  const handleCloseModal = () => {
+    safeGameMutate((game) => {
+      game.reset();
+    });
+    clearTimeout(200);
+    setModalIsOpen(false);
+  }
+
+  const customStyles = {
+    overlay: {zIndex: 1000}
+  };
 
   function makeAMove(move) {
     const gameCopy = { ...game };
@@ -60,7 +79,25 @@ export default function App() {
     }
 
     if (gameStatus.gameOver || game.moves().length == 0) {
-      console.log(gameStatus.message)
+      if(gameStatus.message.localeCompare("Game Over - White Won") == 0){
+        setModalText("You won! Seems you are the real next Magnus or at least you had some luck. Or did you cheat? Better play again to proof that you are really that good.");
+        setModalTitle("White won");
+        setModalIsOpen(true);
+      } else if (gameStatus.message.localeCompare("Game Over - Black Won") == 0 || game.moves().length == 0){
+        setModalText("Not everyone can be a chess master, especially not you. But you cam play again to show me that I am wrong.");
+        setModalTitle("Game over");
+        setModalIsOpen(true);
+      } else if (gameStatus.message.localeCompare("Game Over - Remis") == 0){
+        setModalText("Nah! Seems you can't beat me. Try it in another round?");
+        setModalTitle("Remis");
+        setModalIsOpen(true);
+      }elb 
+
+      
+      return;
+    }
+
+    if (game.moves().length == 0) {
       return;
     }
     
@@ -98,7 +135,7 @@ export default function App() {
     }}
     customDarkSquareStyle={{ backgroundColor: "#91b1c7" }}
     customLightSquareStyle={{ backgroundColor: "#dae1e6" }} />
-    <button className="resetButton"
+    <button className="button"
         onClick={() => {
           safeGameMutate((game) => {
             game.reset();
@@ -108,6 +145,13 @@ export default function App() {
       > Reset
       </button>
   </div>
+  <ReactModal isOpen={modalIsOpen} style={customStyles} className="Modal"
+           overlayClassName="Overlay" contentLabel="Game finished"
+           shouldFocusAfterRender={false} >
+      <h3>{modalTitle}</h3>      
+      <p>{modalText}</p>
+      <button className="button" onClick={handleCloseModal}>Play again</button>
+  </ReactModal>
   </>
 
 );
